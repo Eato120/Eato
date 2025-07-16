@@ -1,0 +1,342 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Eato App</title>
+  <link rel="stylesheet" href="../css/style.css"/>
+</head>
+<body>
+<!-- Logo Section -->
+<div class="logo">
+  <img src="../logo/Eato_logo.jpg" alt="Eato Logo" />
+<div class="container">
+  <h1>Welcome to Eato</h1>
+
+  <div id="chooseAuth">
+    <button onclick="showForm('login')">Login</button>
+    <button onclick="showForm('signup')">Sign Up</button>
+  </div>
+
+  <div id="loginSection" style="display:none;">
+    <h2>Login</h2>
+    <form id="loginForm">
+      <label>Email: <input type="email" required /></label>
+      <label>Password: <input type="password" required /></label>
+      <button type="submit">Login</button>
+    </form>
+  </div>
+
+  <div id="signupSection" style="display:none;">
+    <h2>Sign Up</h2>
+    <form id="signupForm">
+      <label>Email: <input type="email" required /></label>
+      <label>Password: <input type="password" required /></label>
+      <button type="submit">Sign Up</button>
+    </form>
+  </div>
+
+<!-- Survey -->
+    <div id="surveySection" style="display:none;">
+      <h2>Food Preferences Survey</h2>
+      <form id="surveyForm">
+        <label>Do you like spicy food?
+          <select id="spicy" required>
+            <option value="">--Choose--</option>
+            <option value="yes">Yes</option>
+            <option value="no">No</option>
+          </select>
+        </label>
+        <label>Do you like sweets?
+          <select id="sweets" required>
+            <option value="">--Choose--</option>
+            <option value="yes">Yes</option>
+            <option value="no">No</option>
+          </select>
+        </label>
+        <label>Do you eat meat?
+          <select id="meat" required>
+            <option value="">--Choose--</option>
+            <option value="yes">Yes</option>
+            <option value="no">No</option>
+          </select>
+        </label>
+        <label>Do you have seafood allergy?
+          <select id="seafood" required>
+            <option value="">--Choose--</option>
+            <option value="yes">Yes</option>
+            <option value="no">No</option>
+          </select>
+        </label>
+        <label>Do you follow a diet?
+          <select id="diet" required>
+            <option value="">--Choose--</option>
+            <option value="none">No</option>
+            <option value="vegan">Vegan</option>
+            <option value="lowcarb">Low Carb</option>
+          </select>
+        </label>
+        <label>How often do you eat out?
+          <select id="eatOut" required>
+            <option value="">--Choose--</option>
+            <option value="daily">Daily</option>
+            <option value="weekly">Weekly</option>
+            <option value="rarely">Rarely</option>
+          </select>
+        </label>
+        <label>Other allergies:
+          <input type="text" id="otherAllergy" />
+        </label>
+        <button type="submit">Continue</button>
+      </form>
+    </div>
+
+    <!-- Health Section -->
+    <div id="healthSection" style="display:none;">
+      <h2>Your Body & Mood</h2>
+      <form id="healthForm">
+        <label>Weight (kg): <input type="number" id="weight" required /></label>
+        <label>Height (cm): <input type="number" id="height" required /></label>
+        <label>Your Mood:
+          <select id="mood" required>
+            <option value="">--Choose--</option>
+            <option value="happy">Happy</option>
+            <option value="stressed">Stressed</option>
+            <option value="busy">Busy</option>
+            <option value="lazy">Lazy</option>
+            <option value="sick">Sick</option>
+          </select>
+        </label>
+        <label>Important Event Today:
+          <select id="event" required>
+            <option value="">--Choose--</option>
+            <option value="none">None</option>
+            <option value="exam">Exam</option>
+            <option value="meeting">Meeting</option>
+            <option value="travel">Travel</option>
+            <option value="wedding">Wedding</option>
+          </select>
+        </label>
+        <button type="submit">Get Recommendation</button>
+      </form>
+    </div>
+
+    <!-- Recommendation Section -->
+    <div id="resultSection" style="display:none;">
+      <h3>Recommended Meal:</h3>
+      <p id="recommendText"></p>
+      <div id="actions">
+        <button onclick="orderMeal()">Order from Eato</button>
+        <button onclick="cookMeal()">I’ll Cook It</button>
+      </div>
+    </div>
+ 
+
+  <div id="actions" style="display:none;">
+    <button onclick="orderFood()">Order from Eato</button>
+    <button onclick="showRecipe()">I'll Cook It</button>
+  </div>
+
+  <div id="orderSection" style="display:none;">
+    <h3>🍽 Your Order</h3>
+    <p><strong>Meal:</strong> Grilled Chicken</p>
+    <p><strong>Price:</strong> 120 EGP</p>
+    <label><input type="radio" name="payment" value="cash" /> Cash</label>
+    <label><input type="radio" name="payment" value="card" /> Card</label>
+    <button onclick="confirmPayment()">Confirm Order</button>
+    <div id="trackingSection" style="display:none; margin-top:10px;">
+      <p>🚚 Your food will arrive in <span id="deliveryTime">30</span> mins.</p>
+    </div>
+  </div>
+
+  <div id="cookSection" style="display:none;">
+    <h3>Cooking Instructions</h3>
+    <p id="recipeText"></p>
+    <button onclick="speakRecipe()">🔊 Read Aloud</button>
+    <h4>Ingredients</h4>
+    <ul id="ingredientList"></ul>
+  </div>
+
+  <div id="resultSection" style="display:none;">
+  <h3>Recommended Meal:</h3>
+  <p id="recommendText"></p>
+  <div id="actions">
+    <button onclick="orderMeal()">Order from Eato</button>
+    <button onclick="cookMeal()">I’ll Cook It</button>
+  </div>
+</div>
+
+
+  <div id="ingredientOrder" style="display:none;">
+    <h3>Buy Ingredient</h3>
+    <img src="ingredient.jpg" alt="Ingredient" style="max-width: 200px;" />
+    <p><strong id="ingredientPrice">Price:</strong> 20 LE</p>
+    <label><input type="radio" name="pay2" value="cash" /> Cash</label>
+    <label><input type="radio" name="pay2" value="card" /> Card</label>
+    <button onclick="confirmIngredientOrder()">Confirm Order</button>
+    <div id="ingredientTracking" style="display:none; margin-top:10px;">
+      <p>🚚 Ingredient arrives in <span id="ingredientTime">10</span> mins.</p>
+    </div>
+  </div>
+  <!-- Footer -->
+    <footer>
+      <p>&copy; 2025 Eato. All rights reserved.</p>
+      <p><strong>Contact us:</strong> 15315 | eato.support@gmail.com</p>
+      <p><strong>Need help?</strong> Some users faced login or tracking issues. We're fixing it.</p>
+    </footer>
+  </div>
+</div>
+
+<audio id="deliveredSound">
+  <source src="https://www.soundjay.com/button/sounds/button-4.mp3" type="audio/mpeg" />
+</audio>
+
+<script>
+  function showForm(type) {
+    document.getElementById("chooseAuth").style.display = "none";
+    document.getElementById(type + "Section").style.display = "block";
+  }
+
+  document.getElementById("signupForm").addEventListener("submit", function (e) {
+    e.preventDefault();
+    document.getElementById("signupSection").style.display = "none";
+    document.getElementById("surveySection").style.display = "block";
+  });
+
+  document.getElementById("loginForm").addEventListener("submit", function (e) {
+    e.preventDefault();
+    document.getElementById("loginSection").style.display = "none";
+    document.getElementById("surveySection").style.display = "block";
+  });
+
+  document.getElementById("surveyForm").addEventListener("submit", function (e) {
+    e.preventDefault();
+    document.getElementById("surveySection").style.display = "none";
+    document.getElementById("healthSection").style.display = "block";
+  });
+
+  document.getElementById("healthForm").addEventListener("submit", function (e) {
+    e.preventDefault();
+    document.getElementById("healthSection").style.display = "none";
+    document.getElementById("actions").style.display = "block";
+  });
+
+  function orderFood() {
+    document.getElementById("actions").style.display = "none";
+    document.getElementById("orderSection").style.display = "block";
+  }
+
+  function showRecipe() {
+    document.getElementById("actions").style.display = "none";
+    document.getElementById("cookSection").style.display = "block";
+
+    document.getElementById("recipeText").innerText = `
+1. Marinate chicken with olive oil, lemon & garlic.
+2. Grill each side 7 mins.
+3. Serve with fresh tomato.`;
+
+    const ingredients = ["Chicken", "Tomato", "Olive Oil", "Lemon", "Garlic"];
+    const list = document.getElementById("ingredientList");
+    list.innerHTML = "";
+    ingredients.forEach(ing => {
+      const li = document.createElement("li");
+      li.innerHTML = `${ing} <button onclick="orderIngredient('${ing}')">Order</button>`;
+      list.appendChild(li);
+    });
+  }
+
+  function speakRecipe() {
+    const recipe = document.getElementById("recipeText").innerText;
+    const msg = new SpeechSynthesisUtterance(recipe);
+    msg.lang = "en-US";
+    speechSynthesis.speak(msg);
+  }
+
+  function confirmPayment() {
+    const selected = document.querySelector('input[name="payment"]:checked');
+    if (!selected) return alert("Select payment method.");
+    document.getElementById("trackingSection").style.display = "block";
+    let time = 30;
+    const interval = setInterval(() => {
+      time--;
+      document.getElementById("deliveryTime").innerText = time;
+      if (time <= 0) {
+        clearInterval(interval);
+        document.getElementById("deliveredSound").play();
+        document.getElementById("trackingSection").innerHTML = `<p>✅ Delivered! Enjoy your meal 😋</p>`;
+      }
+    }, 60000);
+  }
+
+  function orderIngredient(name) {
+    document.getElementById("cookSection").style.display = "none";
+    document.getElementById("ingredientOrder").style.display = "block";
+    document.getElementById("ingredientPrice").innerText = `Price: ${name} - 20 LE`;
+  }
+
+  function confirmIngredientOrder() {
+    const selected = document.querySelector('input[name="pay2"]:checked');
+    if (!selected) return alert("Select payment method.");
+    document.getElementById("ingredientTracking").style.display = "block";
+    let time = 10;
+    const interval = setInterval(() => {
+      time--;
+      document.getElementById("ingredientTime").innerText = time;
+      if (time <= 0) {
+        clearInterval(interval);
+        document.getElementById("deliveredSound").play();
+        document.getElementById("ingredientTracking").innerHTML = `<p>✅ Delivered! Happy cooking 👩‍🍳</p>`;
+      }
+    }, 60000);
+  }
+
+  document.getElementById("healthForm").addEventListener("submit", function (e) {
+  e.preventDefault();
+
+  // إخفاء فورم الصحة
+  document.getElementById("healthSection").style.display = "none";
+
+  // إظهار النتيجة
+  document.getElementById("resultSection").style.display = "block";
+
+  // تعديل نص التوصية حسب المزاج مثلًا
+  const mood = document.getElementById("mood").value;
+  let recommendation = "";
+
+  switch (mood) {
+    case "happy":
+      recommendation = "Grilled Chicken with Quinoa & Fresh Salad 🥗";
+      break;
+    case "stressed":
+      recommendation = "Comforting Lentil Soup with Brown Bread 🍲";
+      break;
+    case "busy":
+      recommendation = "Quick Tuna Wrap with Veggies 🌯";
+      break;
+    case "lazy":
+      recommendation = "Ready-Made Healthy Bowl 🍱";
+      break;
+    case "sick":
+      recommendation = "Chicken Broth with Rice & Herbs 🍚";
+      break;
+    default:
+      recommendation = "Grilled Chicken with Veggies";
+  }
+
+  // عرض التوصية
+  document.getElementById("recommendText").innerText = recommendation;
+});
+function orderMeal() {
+  document.getElementById("resultSection").style.display = "none";
+  document.getElementById("orderSection").style.display = "block";
+}
+
+function cookMeal() {
+  document.getElementById("resultSection").style.display = "none";
+  document.getElementById("cookSection").style.display = "block";
+  showRecipe(); // لو دي بتعرض الريسيبي
+}
+
+</script>
+
+</body>
+</html>
